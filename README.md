@@ -11,3 +11,14 @@ Business context and MVP planning. Hardware and software implementation have not
 ## Documentation
 
 - [Task #1 — Business context description](BUSINESS_CONTEXT.md): business problem, stakeholders, objectives, scope, five use cases, eight user stories, acceptance criteria, business rules, risks, and validation plan.
+- [Task #2 — C4 architecture](docs/architecture/README.md): System Context and Container diagrams, proposed technologies, and architecture decisions.
+
+## C4 architecture diagrams
+
+### System Context
+
+![DesignSpace System Context](docs/architecture/system-context.png)
+
+### Containers
+
+![DesignSpace Containers](docs/architecture/container.png)
