@@ -1,0 +1,8 @@
+user device-01
+topic write designspace/workspaces/studio-01/devices/device-01/telemetry
+
+user backend
+topic read designspace/workspaces/studio-01/devices/+/telemetry
+
+user health
+topic read $SYS/broker/version

@@ -2,6 +2,8 @@
 
 Proposed architecture for **DesignSpace — Smart Workspace for Designers**. These diagrams describe the planned MVP, not existing deployed software.
 
+> Task #3 update: device ingestion now uses MQTT over TLS through a Mosquitto broker, replacing the direct HTTPS connection in this Task #2 snapshot. See [MQTT infrastructure](../../infrastructure/mqtt/README.md) for the updated flow and implementation.
+
 ## System Context — Level 1
 
 ![DesignSpace C4 System Context diagram](system-context.png)
