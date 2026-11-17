@@ -1,9 +1,13 @@
-# IoT — Smart Home Energy Monitoring
+# DesignSpace — Smart Workspace for Designers
 
-Proposed project: help households understand electricity consumption using connected meters or smart plugs, historical usage views, estimated costs, and consumption alerts.
+An IoT project for designers who want to understand and reproduce their preferred workspace conditions.
 
-The topic is a planning assumption pending stakeholder confirmation. This repository currently contains project planning documentation; it does not yet contain an implementation.
+A desk-mounted sensor measures ambient light, temperature, and humidity. A dashboard shows current and historical readings, supports personal profiles for different creative activities, and provides in-app alerts when conditions remain outside the selected ranges.
 
-## Project documentation
+## Project status
 
-- [Task #1 — Business context description](BUSINESS_CONTEXT.md): business problem, stakeholders, objectives, scope, use cases, user stories, acceptance criteria, business rules, and risks.
+Business context and MVP planning. Hardware and software implementation have not started. The concept connects the project owner's interest in design with an achievable IoT monitoring workflow.
+
+## Documentation
+
+- [Task #1 — Business context description](BUSINESS_CONTEXT.md): business problem, stakeholders, objectives, scope, five use cases, eight user stories, acceptance criteria, business rules, risks, and validation plan.

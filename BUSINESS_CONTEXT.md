@@ -1,162 +1,185 @@
-# Business Context: IoT Smart Home Energy Monitoring
+# Business Context: DesignSpace — Smart Workspace for Designers
 
 Project — Task #1
 
-## 1. Project definition and assumptions
+## 1. Project overview
 
-This project proposes an Internet of Things (IoT) system that helps residents understand household electricity consumption and identify opportunities to reduce waste. Connected meters or smart plugs send consumption readings to a service that presents them in a dashboard and notifies users when configured limits are exceeded.
+DesignSpace is a proposed IoT system that helps designers understand and adjust the conditions around their workspace. A desk-mounted sensor measures ambient light, temperature, and humidity. A web dashboard displays current conditions, shows historical trends, and compares measurements with the designer's saved preferences for different activities.
 
-**Planning assumption:** Smart home energy monitoring is the proposed topic because the repository did not contain an existing project specification. The scope and success targets below are proposals to validate with stakeholders, not claims about an implemented product.
+The project connects IoT with design practice: a designer can select a profile for digital design, sketching, or reviewing physical samples and receive an indication when measured conditions fall outside their chosen ranges.
 
-## 2. Business problem and value
+**Project status:** This document defines a proposed MVP, not an implemented product. The concept follows the project owner's interest in design; the specific design discipline, hardware, and preferred conditions still require validation.
 
-Household electricity bills show total charges but often provide limited insight into when energy was consumed or which appliances contributed most. Residents may therefore struggle to identify unnecessary usage or understand the effect of changing their habits.
+## 2. Business problem and value proposition
 
-The proposed system makes consumption visible at the level supported by installed devices. It helps residents compare usage over time, investigate unusual consumption, and evaluate potential savings. Any cost shown is an estimate based on a user-supplied fixed electricity rate; the utility bill remains the authoritative source of charges.
+Designers may work in rooms where daylight, artificial lighting, temperature, and humidity change throughout the day. Without measurements, it can be difficult to recognize these changes or reproduce a personally preferred working environment.
 
-## 3. Stakeholders and intended users
+DesignSpace makes these conditions visible and connects them to a designer's workflow. Instead of repeatedly checking separate instruments, the designer can review one dashboard, select an activity profile, and decide whether to adjust desk lighting, blinds, or room conditions.
 
-| Stakeholder | Need or interest |
+The expected value is better awareness and easier reproduction of preferred workspace conditions. Improvements in comfort, productivity, or design quality are hypotheses to test with users, not guaranteed outcomes. An ambient light sensor does not measure display calibration or certify conditions for color-critical work.
+
+## 3. Stakeholders and users
+
+| Stakeholder | Main need |
 | --- | --- |
-| Homeowner or tenant | Understand consumption, identify waste, and manage an electricity budget. |
-| Household administrator | Register devices, assign room or appliance labels, and configure alerts. |
-| Invited household member | View the household dashboard without changing configuration. |
-| System maintainer | Diagnose data ingestion and device connectivity problems while limiting access to household data. |
-| Project team or evaluator | Assess whether the prototype solves the stated problem through demonstrable user workflows. |
+| Freelance designer | Understand changing conditions at a home workspace and save personal preferences. |
+| Design student | Use an accessible tool to explore how workspace conditions vary between creative activities. |
+| Small design studio owner | Evaluate whether a simple monitoring tool is useful before adopting it for more desks. |
+| Project owner and development team | Deliver a demonstrable IoT prototype tied to a practical design workflow. |
+| Course evaluator | Assess the relationship between business needs, use cases, and verifiable requirements. |
 
-The primary customer is a household with compatible metering devices and internet access. The prototype supports one household per account; shared access uses administrator and viewer roles.
+The primary MVP user is an individual designer with one monitored workspace. Shared studio administration and multiple users per workspace are future possibilities.
 
-## 4. Objectives and proposed success criteria
+## 4. Business objectives and proposed success criteria
 
-| Objective | Proposed acceptance measure |
+| Objective | Proposed validation measure |
 | --- | --- |
-| Make recent consumption visible | During a controlled connectivity test, at least 95% of valid readings appear in the dashboard within 60 seconds of service receipt. |
-| Support comparisons | A user can compare daily consumption across a selected seven-day period for each monitored device. |
-| Identify threshold exceedances | A qualifying reading creates an in-app alert within 60 seconds of receipt, with one alert per device per configured daily threshold period. |
-| Make missing data clear | A device is marked offline after five minutes without a valid reading; affected totals are marked incomplete. |
-| Protect household access | Access-control checks demonstrate that users cannot read or modify another household's devices, readings, or alerts. |
+| Make workspace conditions visible | During a controlled test, at least 95% of valid readings appear within 60 seconds of server receipt. |
+| Support different design activities | A user can create, edit, and activate profiles for digital design, sketching, and physical sample review. |
+| Help users recognize changes | Five consecutive minutes of readings outside an active profile's range produce one in-app alert for the affected measurement. |
+| Make the prototype understandable | At least four of five pilot users can select a profile and identify an out-of-range measurement without assistance. |
+| Establish relevance to design work | At least three of five pilot users can describe one practical workspace adjustment informed by the dashboard. |
 
-The project aims to support better decisions, but does not promise a particular reduction in electricity usage or bills. Actual savings would require a longer pilot and a baseline for comparison.
+Pilot targets are proposed evaluation criteria. They are not completed results or proof of general productivity gains.
 
-## 5. Scope
+## 5. MVP scope
 
-### Minimum viable product
+Included features:
 
-- Account authentication and household administrator/viewer permissions.
-- Registration and labeling of compatible meters or smart plugs.
-- Collection of timestamped energy readings and device connectivity status.
-- Dashboard showing recent consumption and daily historical totals by device.
-- Estimated variable energy costs using a manually entered fixed rate and currency.
-- User-configured daily energy thresholds and in-app notifications.
-- Clear display of stale readings and incomplete reporting periods.
+- Account authentication and ownership of one workspace per account.
+- Pairing one compatible sensor device with the workspace.
+- Measurement of ambient illuminance in lux, temperature in degrees Celsius, and relative humidity in percent.
+- Dashboard with current readings, timestamps, connectivity status, and a 24-hour history.
+- User-defined activity profiles with preferred minimum and maximum values for each measurement.
+- Manual profile selection and in-app alerts for sustained deviations.
+- Explicit indicators for missing readings and offline devices.
 
-### Outside the initial scope
+Excluded from the MVP:
 
-- Remote switching of appliances or automatic control of electrical equipment.
-- Utility billing, payment processing, or revenue-grade metering certification.
-- Dynamic tariffs, taxes, standing charges, or automatic tariff imports.
-- Automatic identification of individual appliances from whole-home readings.
-- Solar generation, battery optimization, and commercial multi-building management.
-- Email, SMS, or push notifications and predictive recommendations.
+- Automatic control of lamps, heating, air conditioning, or other electrical equipment.
+- Display calibration, color-temperature measurement, and certification for print or color proofing.
+- Medical advice or promises about health, comfort, or productivity.
+- Cameras, microphones, occupancy tracking, or monitoring an employee's performance.
+- Shared studio accounts, multiple desks per account, mobile push notifications, and subscriptions.
 
 ## 6. Main use cases
 
-### UC-01 — Register a monitoring device
+### UC-01 — Set up a designer's workspace
 
-**Actor:** Household administrator.  
-**Preconditions:** The administrator is signed in and has a compatible device with proof of ownership or a pairing credential.
+**Actor:** Designer.
+**Preconditions:** The user is authenticated and has a compatible device and its pairing credential.
 
-1. The administrator starts device registration and supplies the pairing information.
-2. The system validates the device and checks that it is not assigned to another household.
-3. The administrator assigns a room or appliance label.
-4. The system displays the device and its connection status.
+1. The designer names the workspace and enters the pairing credential.
+2. The system validates the credential and checks device ownership.
+3. The designer places the sensor near the working area according to device guidance.
+4. The dashboard displays the first valid readings and their timestamps.
 
-**Outcome:** The device belongs to the household and can contribute readings. Invalid pairing information or an existing assignment produces a clear error without creating a duplicate device.
+**Outcome:** The designer has a monitored workspace. Invalid credentials and devices already owned by another account are rejected. If no readings arrive, the dashboard shows a waiting state rather than fabricated measurements.
 
-### UC-02 — Review consumption and estimated costs
+### UC-02 — Choose conditions for a design activity
 
-**Actor:** Administrator or household viewer.  
-**Preconditions:** At least one device is registered.
+**Actor:** Designer.
+**Preconditions:** The workspace exists.
 
-1. The user opens the dashboard and selects a device and date range.
-2. The system displays available consumption in kWh, daily totals, and the time of the latest reading.
-3. If a fixed rate is configured, the system displays an estimated variable cost.
-4. The user compares daily totals to identify high-consumption periods.
+1. The designer creates a profile, such as “Sketching,” and enters preferred ranges.
+2. The system validates and saves the ranges.
+3. The designer activates the profile before starting work.
+4. The dashboard compares current readings with the selected ranges.
 
-**Outcome:** The user can understand recorded usage. Empty periods, stale readings, and gaps are explicitly identified; missing readings are not presented as zero consumption.
+**Outcome:** The workspace is evaluated against the designer's own preferences. Profiles represent personal choices, not universal professional standards.
 
-### UC-03 — Receive a daily consumption alert
+### UC-03 — Respond to changing conditions
 
-**Actor:** Household administrator.  
-**Preconditions:** A device has a positive daily energy threshold configured.
+**Actor:** Designer.
+**Preconditions:** A profile is active and the sensor is reporting valid readings.
 
-1. The system receives and validates a new energy reading.
-2. It updates the device's daily consumption using the household's configured time zone.
-3. When consumption exceeds the threshold, it creates an in-app alert.
-4. The administrator reviews the device, measured consumption, threshold, and event time.
+1. A measurement remains outside the selected range for five consecutive minutes.
+2. The system creates an in-app alert identifying the measurement, observed value, preferred range, and time.
+3. The designer reviews the alert and decides whether to adjust lighting, blinds, or room conditions.
+4. Once readings return to the selected range, the system resolves the active condition.
 
-**Outcome:** The administrator is informed of the exceedance. Further readings during the same local day do not create duplicate alerts for that device and threshold.
+**Outcome:** The designer receives useful feedback without repeated alerts for the same continuous deviation. Physical adjustments remain the user's decision.
 
-### UC-04 — Investigate an offline device
+### UC-04 — Review a day's workspace conditions
 
-**Actor:** Household administrator.  
-**Preconditions:** A registered device has previously reported readings.
+**Actor:** Designer.
+**Preconditions:** Historical readings are available.
 
-1. The system detects that no valid reading has arrived for five minutes.
-2. The dashboard marks the device offline and shows its last reading time.
-3. The administrator checks device power and network connectivity.
-4. When valid readings resume, the system updates the connection status.
+1. The designer opens the 24-hour history.
+2. The system displays separate time-series views for light, temperature, and humidity.
+3. The designer examines when conditions changed and considers adjustments for future work sessions.
 
-**Outcome:** The user can distinguish a connection problem from low energy use. Historical gaps remain marked unless recovered readings fill them.
+**Outcome:** The designer can interpret recorded changes. Missing intervals are shown as gaps, and the system does not attribute changes to a cause it has not measured.
+
+### UC-05 — Diagnose an offline sensor
+
+**Actor:** Designer.
+**Preconditions:** A paired sensor has previously sent readings.
+
+1. The system receives no valid reading for five minutes.
+2. It marks the device offline and displays the time of the last valid reading.
+3. The designer checks the device's power and connectivity.
+4. A new valid reading restores online status.
+
+**Outcome:** The designer can distinguish stale readings from current conditions. Missing data cannot trigger an environmental alert.
 
 ## 7. User stories and acceptance criteria
 
 | ID | User story | Acceptance criteria |
 | --- | --- | --- |
-| US-01 | As an administrator, I want to register and label a device so that I know which appliance or room it monitors. | Valid pairing creates one household device; invalid or already assigned devices are rejected; the label appears in the dashboard. |
-| US-02 | As a resident, I want to see recent consumption so that I can understand current household activity. | Each device shows available consumption, units, and the latest reading time; stale data is visibly marked. |
-| US-03 | As a resident, I want to compare daily energy use so that I can identify changes in my habits. | A seven-day selection shows daily kWh totals; aggregation follows the household time zone; periods with gaps are marked incomplete. |
-| US-04 | As an administrator, I want to enter my electricity rate so that residents can see approximate energy costs. | Only a nonnegative numeric rate with a currency is accepted; estimated cost equals recorded kWh multiplied by the configured rate; the display states that fixed charges and taxes are excluded. |
-| US-05 | As an administrator, I want daily consumption alerts so that I can investigate unexpectedly high usage. | A positive threshold can be saved per device; exceeding it creates an in-app alert with the device, time, usage, and threshold; repeated readings do not duplicate that day's alert. |
-| US-06 | As an administrator, I want to recognize offline devices so that I can restore monitoring. | Five minutes without valid readings produces an offline status; the last reading time remains visible; a new valid reading restores online status. |
-| US-07 | As a household viewer, I want to inspect consumption without changing settings so that I can participate in energy-saving decisions. | A viewer can read household readings and alerts but cannot register devices, edit rates, or change thresholds; these restrictions are enforced by the service. |
-| US-08 | As a resident, I want my household data to remain private so that unrelated users cannot observe my habits. | Unauthenticated requests are rejected; authenticated users cannot access another household's data by changing a resource identifier. |
+| US-01 | As a designer, I want to pair a sensor with my desk so that I can monitor my workspace. | A valid unassigned device can be paired; invalid credentials or another user's device are rejected; the workspace shows the paired device. |
+| US-02 | As a designer, I want to see current conditions so that I can decide whether to adjust my surroundings. | The dashboard shows lux, degrees Celsius, and relative humidity with timestamps; unavailable readings are labeled; readings are never presented as current after the device is marked offline. |
+| US-03 | As a designer, I want to save profiles for different activities so that I can reuse my preferred settings. | Profiles support a name and a range for each measurement; minimum values must be lower than maximum values; humidity is limited to 0–100% and light values cannot be negative. |
+| US-04 | As a designer, I want to activate a profile so that the dashboard reflects my current task. | Exactly one profile is active at a time; switching profiles updates comparisons and resets pending deviation timers. |
+| US-05 | As a designer, I want alerts for sustained deviations so that brief fluctuations do not interrupt my work. | Five consecutive minutes outside a range create one alert per measurement; no repeat is created until that measurement returns to range and later exceeds it again; a data gap resets the pending timer. |
+| US-06 | As a designer, I want to inspect a day's measurements so that I can recognize changes over time. | The last 24 hours can be viewed for each measurement with units and local times; gaps remain visible rather than being filled with zero values. |
+| US-07 | As a designer, I want to know when my sensor is offline so that I can restore monitoring. | Five minutes without valid readings marks the device offline; the last valid timestamp is visible; receiving a new valid reading restores online status. |
+| US-08 | As a designer, I want my workspace data to remain private so that other accounts cannot access my routines. | Unauthenticated access is rejected; changing a workspace or device identifier does not expose another user's readings, profiles, or configuration. |
 
 ## 8. Business rules and data requirements
 
-- Each device belongs to one household at a time. Only its household administrator can change its configuration.
-- Each accepted reading identifies a device, measurement time, unit, and energy quantity. The ingestion design must define whether the device supplies cumulative counters or interval energy before aggregation is implemented.
-- Power in watts and energy in kWh are distinct quantities and must not be displayed interchangeably.
-- Duplicate readings must not increase consumption totals. Invalid readings must not enter aggregates; late readings must update the correct historical period.
-- Household summaries must avoid double-counting overlapping meters, such as a whole-home meter and its appliance submeters. Until coverage is configured, show per-device totals instead of an assumed household total.
-- Daily totals and threshold periods follow the household's selected time zone. Threshold edits take effect on the next local day.
-- In the prototype, the current fixed rate is applied to any selected reporting period. Changing it recalculates displayed estimates and does not reconstruct historical tariffs.
-- The proposed retention period is 90 days of readings for prototype reporting; deletion and retention behavior must be agreed before a pilot with real household data.
+- One account owns one workspace and one paired sensor in the MVP.
+- Each reading includes a device identifier, a unique reading identifier, a measurement timestamp, and values with defined units.
+- The proposed reporting interval is 30 seconds. Values must be validated against the selected sensor's supported measurement ranges.
+- Duplicate readings do not create duplicate history entries or advance alert timers. Out-of-order readings can fill historical gaps but do not trigger current-condition alerts.
+- Alert evaluation uses consecutive, fresh measurement timestamps. An interval longer than 60 seconds between readings interrupts continuity and resets pending deviation timers.
+- An active deviation closes when a valid measurement returns to range. A profile switch clears active conditions and starts evaluation against the newly selected profile.
+- Offline status is based on elapsed time since service receipt of the last valid, fresh reading. Old buffered readings must not make an offline device appear current.
+- Timestamps are stored consistently and displayed in the workspace's selected time zone.
+- Profile ranges are user preferences. Example profile names may be supplied, but the user must set ranges before activating a profile.
+- The proposed raw-reading retention period is 30 days, with the last 24 hours available in the MVP dashboard. Retention and account deletion behavior must be finalized before a real-user pilot.
 
 ## 9. Quality expectations and constraints
 
-The dashboard should work on desktop and mobile screens, use clear units and readable labels, and indicate status with text rather than color alone. Device-to-service and user-to-service communications should be authenticated and encrypted, with credentials excluded from source control and logs.
+The dashboard should work on laptop and mobile screens, use readable labels, and indicate status with text as well as color. User and device communication should be authenticated and encrypted. Credentials must not be committed to the repository or included in logs.
 
-The prototype depends on compatible hardware, reliable timestamps, and network connectivity. If physical hardware is unavailable, a simulator may demonstrate the workflows, but simulated readings must be labeled and hardware integration must remain an explicit unfinished milestone.
+Sensor placement affects measurements: a sensor near a lamp or heat source may not represent the whole workspace. The interface and setup guidance should explain that measurements describe the sensor's location. Affordable hardware and straightforward setup are priorities; the exact component cost remains to be established after hardware selection.
 
-Consumption patterns can reveal household routines. Collect only information needed for monitoring, restrict access by household and role, and define account deletion and data handling before real users participate.
+If hardware is unavailable, a clearly labeled simulator can demonstrate profiles, charts, and alerts. Such a demonstration does not complete the hardware integration milestone.
 
-## 10. Risks and validation plan
+## 10. Risks and responses
 
 | Risk | Planned response |
 | --- | --- |
-| Inaccurate or incompatible device readings | Validate units and meter behavior against known sample readings before interpreting results. |
-| Connectivity gaps distort comparisons | Show missing intervals and incomplete totals; support recovered readings where hardware permits. |
-| Too many notifications reduce usefulness | Use explicit user thresholds and suppress repeated alerts within the daily period. |
-| Cost estimates are mistaken for bills | Label estimates and show the rate, currency, and excluded charges. |
-| Users expect whole-home coverage from a few smart plugs | Show which devices are monitored and describe coverage limits. |
-| The proposed topic does not match stakeholder expectations | Confirm the project concept and MVP scope before implementation. |
+| The concept does not match the owner's specific design discipline | Confirm whether the initial focus is digital, graphic, product, interior, or another type of design before implementation. |
+| Readings are inaccurate or placement is misleading | Document placement guidance and compare prototype readings with a reference instrument. |
+| Users interpret light readings as proof of color accuracy | State that lux measurements do not provide display calibration or color-proofing certification. |
+| Frequent alerts distract from creative work | Require sustained deviations, suppress duplicates, and allow users to edit their preferred ranges. |
+| Network interruptions create misleading history | Mark gaps and stale readings explicitly; pause environmental evaluation during missing data. |
+| Users see little value beyond a basic sensor display | Validate activity profiles and historical review with designers before expanding the feature set. |
 
-Validate the prototype with a walkthrough covering registration, a seven-day consumption comparison, a threshold exceedance, a device outage, and unauthorized access attempts. Use a known dataset to verify totals, duplicate handling, missing intervals, and cost calculations. Ask prospective users whether the dashboard helps them identify a concrete action; use their feedback to prioritize subsequent development.
+## 11. Validation and future development
 
-## 11. Open decisions
+Demonstrate pairing, live readings, profile creation and switching, a sustained deviation, recovery, a connectivity outage, and historical review. Use a known dataset to check duplicate handling, out-of-order readings, alert timing, and missing intervals. Verify account isolation through unauthorized access attempts.
 
-1. Confirm the proposed smart home energy monitoring topic and target households.
-2. Select supported hardware, communication protocol, and expected reporting interval.
-3. Confirm the pairing method, account invitation flow, and data deletion policy.
-4. Agree on the pilot size and validate the proposed success targets.
+Run a small usability pilot with five designers or design students, using the proposed success criteria above. Record whether users understand the readings and can identify a useful action. The pilot should determine whether profiles solve a meaningful problem before adding features.
+
+Potential later extensions include multiple workspaces, supported smart-light integration with explicit user control, and exportable session reports. They remain outside the initial delivery.
+
+## 12. Open decisions
+
+1. Confirm the owner's design discipline and most relevant creative activities.
+2. Choose the microcontroller, sensors, and communication protocol.
+3. Select the pairing and authentication mechanism.
+4. Agree on the hardware budget, pilot participants, retention, and deletion policy.
+5. Validate whether the proposed reporting interval and alert delay suit actual workflows.
